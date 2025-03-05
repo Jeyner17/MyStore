@@ -15,7 +15,7 @@ module.exports = {
     dialectOptions: {
       ssl: {
         require: true,
-        rejectUnauthorized: false // Necesario para Render
+        rejectUnauthorized: false 
       }
     },
     // Configuración de pool para entorno de producción
