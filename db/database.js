@@ -1,7 +1,9 @@
+// config/database.js
 const { config } = require('./../config/config');
-const USER = encodeURIComponent(config.dbUser);
-const PASS = encodeURIComponent(config.dbPass);
-const URI = `postgres://${USER}:${PASS}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+
+// Usar DATABASE_URL directamente si está disponible (para Render)
+const URI = config.dbUrl || `postgres://${encodeURIComponent(config.dbUser)}:${encodeURIComponent(config.dbPass)}@${config.dbHost}:${config.dbPort}/${config.dbName}`;
+
 module.exports = {
   development: {
     url: URI,
@@ -10,5 +12,18 @@ module.exports = {
   production: {
     url: URI,
     dialect: 'postgres',
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false // Necesario para Render
+      }
+    },
+    // Configuración de pool para entorno de producción
+    pool: {
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000
+    }
   }
 };

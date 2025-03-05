@@ -1,3 +1,4 @@
+//libs/sequelize.js
 const { Sequelize } = require('sequelize');
 const { config } = require('./../config/config');
 const initModels = require('./../db/models');
@@ -7,6 +8,13 @@ const URI = `postgres://${USER}:${PASS}@${config.dbHost}:${config.dbPort}/${conf
 const sequelize = new Sequelize(URI, {
   dialect: 'postgres',
   logging: (msg) => console.log(msg),
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+
 });
 
 initModels(sequelize);
