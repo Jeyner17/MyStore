@@ -1,12 +1,15 @@
+// config/config.js
 require('dotenv').config();
+
 const config = {
-  env: process.env.NODE_ENV || 'dev',
+  env: process.env.NODE_ENV || 'development',
+  isProd: process.env.NODE_ENV === 'production',
   port: process.env.PORT || 3000,
-  dbUser: process.env.DB_USER,
-  dbPass: process.env.DB_PASS,
-  dbName: process.env.DB_NAME,
-  dbHost: process.env.DB_HOST,
-  dbPort: process.env.DB_PORT,
+  dbUser: process.env.DB_USER || 'postgres',
+  dbPass: process.env.DB_PASSWORD || 'tu_contraseña',
+  dbHost: process.env.DB_HOST || 'localhost',
+  dbPort: process.env.DB_PORT || 5432,
+  dbName: process.env.DB_NAME || 'my_store'
 };
 
 module.exports = { config };
